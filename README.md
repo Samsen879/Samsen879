@@ -1,41 +1,35 @@
 # Samsen
 
-Building **CIE Copilot**, an evidence-grounded learning runtime for Cambridge A-Level STEM.
+I build AI systems for learning and tools for running coding agents, and I work on an open problem in additive number theory on the side.
 
-I work on learning systems where AI is not just a chat layer, but part of a structured study loop: paper-aware workspaces, exam evidence, server-side marking, review scheduling, and durable learning state.
-
-## Current Focus
+## Projects
 
 ### CIE Copilot
 
-[CIE Copilot](https://github.com/Samsen879/ciecopilot-home) is a syllabus-aware learning OS for Cambridge International A-Level preparation, starting with 9709 Mathematics.
+*Private, in active development.*
 
-The project is built around a narrower but deeper problem:
+A study product for Cambridge International A-Level Mathematics (9709, with 9231 Further Mathematics in progress). It is organised around a method map: each question type is linked to the trigger that signals it and the procedure that solves it. Practice, marking and review then point a student to the specific method they have not mastered yet, rather than to a whole topic. Answers and marking are grounded in real exam evidence instead of generic prompting.
 
-- map past-paper work into paper, topic, and question-type contexts;
-- answer from exam-grounded evidence instead of generic prompts;
-- keep learning sessions, artifacts, review tasks, and mastery signals as structured state;
-- separate released scoring paths from fallback behavior;
-- use production gates before treating exam data as reliable product surface.
+### [ao-pilot](https://github.com/Samsen879/ao-pilot)
 
-Current public README covers the product direction, architecture, data assets, and release posture.
+A control plane for running several AI coding agents in parallel on one repository. It keeps durable state for tasks, ownership and handoffs, reconciles that state against GitHub PR / CI / review results, and parks work as `blocked` or `ambiguous` when the sources disagree instead of guessing.
 
-## Selected OSS Contributions
+I use it to build CIE Copilot. It runs unattended overnight and has completed more than 100 issues end to end, from issue to reviewed, merged PR.
 
-I also contribute focused fixes to open-source developer tools.
+### [a303656](https://github.com/Samsen879/a303656)
 
-- [yamadashy/repomix#1622](https://github.com/yamadashy/repomix/pull/1622) - fixed an ignore-file edge case so `.gitignore`, `.ignore`, and `.repomixignore` rules remain active while the control files stay out of packed output.
-- [yamadashy/repomix#1618](https://github.com/yamadashy/repomix/pull/1618) - fixed multi-root duplicate relative paths so files like `README.md` or `src/index.ts` from different roots are preserved correctly in output.
-- [yamadashy/repomix#1631](https://github.com/yamadashy/repomix/pull/1631) - proposed a remote-mode fix for copying split output files after remote packing.
+Work on Zhi-Wei Sun's open conjecture [OEIS A303656](https://oeis.org/A303656): every integer n > 1 is a sum a² + b² + 3ᶜ + 5ᵈ.
 
-## What I Care About
+- Two independently written C++ scanners checked all 1.6 billion consecutive integers just beyond the previously verified bound of 2.4 × 10¹¹ and found no counterexample.
+- The repository also maps which proof strategies fail and why, with a theorem index separating what is proved, conditional, finite, or still open.
 
-- Evidence before claims.
-- Narrow, well-bounded product surfaces.
-- Runtime state that survives beyond a single AI response.
-- Tests and release gates that make product behavior inspectable.
+The conjecture itself remains open.
 
-## Links
+## Open-source contributions
 
-- Main project: [CIE Copilot](https://github.com/Samsen879/ciecopilot-home)
-- GitHub: [@Samsen879](https://github.com/Samsen879)
+Merged into [yamadashy/repomix](https://github.com/yamadashy/repomix), a tool that packs a repository into a single AI-friendly file:
+
+- [#1646](https://github.com/yamadashy/repomix/pull/1646) — added a cwd-relative output path style.
+- [#1631](https://github.com/yamadashy/repomix/pull/1631) — copy split output files correctly after remote packing.
+- [#1622](https://github.com/yamadashy/repomix/pull/1622) — keep `.gitignore` / `.ignore` / `.repomixignore` rules active while leaving the control files out of the packed output.
+- [#1618](https://github.com/yamadashy/repomix/pull/1618) — preserve files with the same relative path (e.g. `README.md`) when packing multiple roots.
